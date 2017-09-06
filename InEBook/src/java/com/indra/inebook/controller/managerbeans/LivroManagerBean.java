@@ -44,6 +44,12 @@ public class LivroManagerBean implements Serializable {
         this.livroSelected = null;
     }
 
+    public void alterarLivro(){
+        PostgresLivroDAO pldao = new PostgresLivroDAO();
+        pldao.updateLivroRegByID(livroSelected);
+        infoAlterado();
+    }
+    
     public String verifyAlterar(){
         if(livroSelected == null){
             errorAlterar();
@@ -179,5 +185,8 @@ public class LivroManagerBean implements Serializable {
     }
     public void errorAlterar() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Selecione um livro para alterar a pagina"));
+    }
+    public void infoAlterado() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Alterado com sucesso"));
     }
 }

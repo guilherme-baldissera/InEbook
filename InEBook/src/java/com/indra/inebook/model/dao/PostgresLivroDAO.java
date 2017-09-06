@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -29,8 +30,67 @@ public class PostgresLivroDAO implements LivroDAO {
     //delete
     private static final String SQL_DELETE_LIVROREG_BY_ID = "DELETE FROM LIVROS_REGISTRADOS WHERE ID = ?";
     private static final String SQL_INSERT_LIVROEST_BY_ID = "DELETE FROM LIVROS_ESTOQUE WHERE ID = ?";
-    
-    public Boolean deleteLivroRegByID(Integer id){
+
+    //UPDATE
+    private static final String SQL_UPDATE_LIVROEST_BY_ID = "UPDATE LIVROS_ESTOQUE SET QUANTIDADE = ?,SECCAO = ?,PRECO = ? WHERE ID = ?";
+    private static final String SQL_UPDATE_LIVROREG_BY_ID = "UPDATE LIVROS_REGISTRADOS SET NOME = ?,AUTOR = ? WHERE ID = ?";
+
+    public Boolean updateLivroRegByID(Livro livro) {
+        Boolean value = false;
+
+        try (Connection cnn = getConnection()) {
+            try (PreparedStatement ps = cnn.prepareStatement(SQL_UPDATE_LIVROREG_BY_ID)) {
+                ps.setString(1, livro.getNome().toUpperCase());
+                ps.setString(2, livro.getAutor().toUpperCase());
+                ps.setInt(3, livro.getId());
+
+                if(updateLivroEstByID(livro)){
+                    ps.executeUpdate();
+                    value = true;
+                }
+
+            } catch (SQLException sql) {
+                System.out.println(sql.getMessage());
+                sql.printStackTrace(System.err);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace(System.err);
+
+        }
+
+        return value;
+    }
+
+    public Boolean updateLivroEstByID(Livro livro) {
+        Boolean value = false;
+
+        try (Connection cnn = getConnection()) {
+            try (PreparedStatement ps = cnn.prepareStatement(SQL_UPDATE_LIVROEST_BY_ID)) {
+                ps.setInt(1, livro.getQuantidade());
+                ps.setString(2, livro.getSeccao().toUpperCase());
+                ps.setFloat(3, livro.getPreco());
+                ps.setInt(4, livro.getId());
+                
+                ps.executeUpdate();
+                value = true;
+
+            } catch (SQLException sql) {
+                System.out.println(sql.getMessage());
+                sql.printStackTrace(System.err);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace(System.err);
+
+        }
+
+        return value;
+    }
+
+    public Boolean deleteLivroRegByID(Integer id) {
         Boolean value = false;
 
         try (Connection cnn = getConnection()) {
@@ -53,7 +113,8 @@ public class PostgresLivroDAO implements LivroDAO {
 
         return value;
     }
-    public Boolean deleteLivroEstByID(Integer id){
+
+    public Boolean deleteLivroEstByID(Integer id) {
         Boolean value = false;
 
         try (Connection cnn = getConnection()) {
@@ -76,8 +137,7 @@ public class PostgresLivroDAO implements LivroDAO {
 
         return value;
     }
-    
-    
+
     public Boolean insertLivroReg(String nome, String autor) {
         Boolean value = false;
 
@@ -168,7 +228,7 @@ public class PostgresLivroDAO implements LivroDAO {
                 ps.setString(2, autor);
 
                 try (ResultSet rs = ps.executeQuery()) {
-                    while(rs.next()){
+                    while (rs.next()) {
                         value = rs.getInt(1);
                     }
                 } catch (SQLException sql) {

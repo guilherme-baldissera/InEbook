@@ -32,7 +32,7 @@
                 <p:inplace>
                 <p:inputNumber value="#{livroBean.livroSelected.quantidade}"></p:inputNumber>
                 </p:inplace>
-                <p:commandButton value="Alterar" ajax="false"  > </p:commandButton>
+                <p:commandButton value="Alterar" ajax="false" actionListener="#{livroBean.alterarLivro}" > </p:commandButton>
                 <p:commandButton value="Voltar" action="index" > </p:commandButton>
                 </p:panelGrid>
             </p:fieldset>
