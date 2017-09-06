@@ -25,6 +25,7 @@ public class LivroManagerBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private List<Livro> livros;
+    private Livro livroSelected;
     private String consultaName;
     private String tipoConsulta;
 
@@ -67,5 +68,14 @@ public class LivroManagerBean implements Serializable {
     public void setTipoConsulta(String tipoConsulta) {
         this.tipoConsulta = tipoConsulta;
     }
+
+    public Livro getLivroSelected() {
+        return livroSelected;
+    }
+
+    public void setLivroSelected(Livro livroSelected) {
+        this.livroSelected = livroSelected;
+    }
+    
 
 }

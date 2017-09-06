@@ -11,17 +11,19 @@ public class Livro {
     private String autor;
     private Float preco;
     private String Seccao;
+    private Integer quantidade;
     
     public Livro(){
         
     }
 
-    public Livro(Integer id, String nome, String autor, Float preco, String Seccao) {
+    public Livro(Integer id, String nome, String autor, Float preco, String Seccao,Integer quantidade) {
         this.id = id;
         this.nome = nome;
         this.autor = autor;
         this.preco = preco;
         this.Seccao = Seccao;
+        this.quantidade = quantidade;
     }
 
     public Integer getId() {
@@ -63,4 +65,13 @@ public class Livro {
     public void setSeccao(String Seccao) {
         this.Seccao = Seccao;
     }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+    
 }

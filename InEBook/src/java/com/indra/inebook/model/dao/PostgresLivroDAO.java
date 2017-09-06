@@ -21,8 +21,8 @@ public class PostgresLivroDAO implements LivroDAO {
     private static final String USER = "postgres";
     private static final String SENHA = "25041993";
     
-    private static final String SQL_LIVROS_BY_NOME = "SELECT LR.ID,LR.NOME,LR.AUTOR,LE.PRECO,LE.SECCAO FROM LIVROS_REGISTRADOS AS LR, LIVROS_ESTOQUE AS LE WHERE LR.ID = LE.ID_REG AND LR.NOME LIKE ?";
-    private static final String SQL_LIVROS_BY_AUTOR = "SELECT LR.ID,LR.NOME,LR.AUTOR,LE.PRECO,LE.SECCAO FROM LIVROS_REGISTRADOS AS LR, LIVROS_ESTOQUE AS LE WHERE LR.ID = LE.ID_REG AND LR.AUTOR LIKE ?";
+    private static final String SQL_LIVROS_BY_NOME = "SELECT LR.ID,LR.NOME,LR.AUTOR,LE.PRECO,LE.SECCAO,LE.QUANTIDADE FROM LIVROS_REGISTRADOS AS LR, LIVROS_ESTOQUE AS LE WHERE LR.ID = LE.ID_REG AND LR.NOME LIKE ?";
+    private static final String SQL_LIVROS_BY_AUTOR = "SELECT LR.ID,LR.NOME,LR.AUTOR,LE.PRECO,LE.SECCAO,LE.QUANTIDADE FROM LIVROS_REGISTRADOS AS LR, LIVROS_ESTOQUE AS LE WHERE LR.ID = LE.ID_REG AND LR.AUTOR LIKE ?";
 
     
     
@@ -33,7 +33,7 @@ public class PostgresLivroDAO implements LivroDAO {
             ps.setString(1, (livro+"%"));
                 try (ResultSet rs = ps.executeQuery()){
                     while(rs.next()){
-                        livros.add(new Livro(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getFloat(4), rs.getString(5)));
+                        livros.add(new Livro(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getFloat(4), rs.getString(5),rs.getInt(6)));
                     }      
                 } catch (SQLException sql) {
                     System.out.println(sql.getMessage());
@@ -58,7 +58,7 @@ public class PostgresLivroDAO implements LivroDAO {
             ps.setString(1, (autor+"%"));
                 try (ResultSet rs = ps.executeQuery()){
                     while(rs.next()){
-                        livros.add(new Livro(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getFloat(4), rs.getString(5)));
+                        livros.add(new Livro(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getFloat(4), rs.getString(5),rs.getInt(6)));
                     }      
                 } catch (SQLException sql) {
                     System.out.println(sql.getMessage());
