@@ -5,32 +5,35 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>InEbook - Cadastro de Livros</title>
+        <h:outputStylesheet library="css" name="index.css"/>
     </h:head>
-    <h:body>
+    <h:body id="principal">
         <h:form>
-            
+
             <p:fieldset legend ="Cadastro de Livros">
-                <p:panelGrid columns="2">
-                
-                <h:outputLabel value="Nome do Livro"></h:outputLabel>
-                <p:inputText value="#{livroBean.nomeLivro}"></p:inputText>
-                              
-                <h:outputLabel value="Preço"></h:outputLabel>
-                <p:inputNumber value="#{livroBean.precoLivro}"></p:inputNumber>
-              
-                <h:outputLabel value="Autor"></h:outputLabel>
-                <p:inputText value="#{livroBean.autorLivro}"></p:inputText>
-              
-                <h:outputLabel value="Secção"></h:outputLabel>
-                <p:inputText value="#{livroBean.seccaoLivro}"></p:inputText>
-         
-                <h:outputLabel value="Quantidade"></h:outputLabel>
-                <p:inputNumber value="#{livroBean.quantidadeLivro}"></p:inputNumber>
-                <p:commandButton value="Cadastrar" ajax="false" actionListener="#{livroBean.novoLivro}" > </p:commandButton>
-                <p:commandButton value="Voltar" action="index" > </p:commandButton>
-                </p:panelGrid>
+                <div id="centralizar">
+                    <p:panelGrid columns="2">
+                        <h:outputLabel value="Nome do Livro"></h:outputLabel>
+                        <p:inputText value="#{livroBean.nomeLivro}"></p:inputText>
+
+                        <h:outputLabel value="Preço"></h:outputLabel>
+                        <p:inputNumber value="#{livroBean.precoLivro}"></p:inputNumber>
+
+                        <h:outputLabel value="Autor"></h:outputLabel>
+                        <p:inputText value="#{livroBean.autorLivro}"></p:inputText>
+
+                        <h:outputLabel value="Secção"></h:outputLabel>
+                        <p:inputText value="#{livroBean.seccaoLivro}"></p:inputText>
+
+                        <h:outputLabel value="Quantidade"></h:outputLabel>
+                        <p:inputNumber value="#{livroBean.quantidadeLivro}"></p:inputNumber>
+                        <p:commandButton value="Cadastrar" ajax="false" actionListener="#{livroBean.novoLivro}" > </p:commandButton>
+                        <p:commandButton value="Voltar" action="index" > </p:commandButton>
+                    </p:panelGrid>
+                </div>
             </p:fieldset>
-           <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
         </h:form>
     </h:body>
 </html>

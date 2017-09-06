@@ -6,11 +6,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>InEbook</title>
+        <h:outputStylesheet library="css" name="index.css"/>
     </h:head>
-    <h:body>
-        <center>
+    <h:body id="principal">
             <h:form>
-                <h1>Gerenciamento de Controle de Estoque</h1>
+                <div id="centralizar">
+                <h1>GERENCIAMENTO DE CONTROLE DE ESTOQUE</h1>
+                </div>
+                <div id="centralizar">
                 <p:inputText placeholder ="Digite o nome do Livro" value="#{livroBean.consultaName}" />
                 <p:spacer width="40" height="10" />
                 <h:selectOneMenu value="#{livroBean.tipoConsulta}">
@@ -20,7 +23,7 @@
                 </h:selectOneMenu>
                 <p:spacer width="40" height="10" />
                 <p:commandButton value="Buscar" ajax="false" actionListener = "#{livroBean.buscarLivros}" update="tabela" ></p:commandButton>
-
+                </div>
                 <br></br><br></br>
                 <p:dataTable id ="tabela"  value="#{livroBean.livros}" var="livro" selectionMode="single" selection="#{livroBean.livroSelected}" rowKey="#{livro.id}" >
                     <p:column headerText="Nome do Livro" sortBy="#{livro.nome}">
@@ -49,10 +52,9 @@
                 <p:commandButton value="Alterar" action="#{livroBean.verifyAlterar}"></p:commandButton>
                 <p:spacer width="100" height="10" />                
                 <p:commandButton value="Excluir" ajax="false" action="#{livroBean.deletarLivro}" update="tabela"></p:commandButton>
-                <p:spacer width="950" height="10" /> 
+                <p:spacer width="645" height="10" /> 
                 <p:commandButton value="Novo" action="cadastrolivro"></p:commandButton> 
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             </h:form>
-        </center>
     </h:body>
 </html>
