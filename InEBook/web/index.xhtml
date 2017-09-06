@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>InEbook</title>
     </h:head>
     <h:body>
         <h:form>
@@ -21,19 +21,19 @@
 
             <br></br><br></br>
             <p:dataTable id ="tabela"  value="#{livroBean.livros}" var="livro">
-                <p:column headerText="Nome do Livro">
+                <p:column headerText="Nome do Livro" sortBy="#{livro.nome}">
                     <h:outputText value="#{livro.nome}" />
                 </p:column>
 
-                <p:column headerText="Preço">
+                <p:column headerText="Preço" sortBy="#{livro.preco}">
                     <h:outputText value="#{livro.preco}" />
                 </p:column>
 
-                <p:column headerText="Autor">
+                <p:column headerText="Autor" sortBy="#{livro.autor}">
                     <h:outputText value="#{livro.autor}" />
                 </p:column>
 
-                <p:column headerText="Seccao">
+                <p:column headerText="Seccao" sortBy="#{livro.seccao}">
                     <h:outputText value="#{livro.seccao}" />
                 </p:column>
 
