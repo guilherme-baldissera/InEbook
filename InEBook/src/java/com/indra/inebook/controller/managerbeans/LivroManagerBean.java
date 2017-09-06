@@ -44,6 +44,15 @@ public class LivroManagerBean implements Serializable {
         this.livroSelected = null;
     }
 
+    public String verifyAlterar(){
+        if(livroSelected == null){
+            errorAlterar();
+            return "";
+        }
+        
+        return "alterarlivro";
+    }
+    
     public void deletarLivro(){
         PostgresLivroDAO pldao = new PostgresLivroDAO();
         
@@ -167,5 +176,8 @@ public class LivroManagerBean implements Serializable {
 
     public void errorDelete() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Não foi selecionado nenhum livro."));
+    }
+    public void errorAlterar() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Selecione um livro para alterar a pagina"));
     }
 }
