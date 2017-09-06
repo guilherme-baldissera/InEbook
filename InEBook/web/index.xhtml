@@ -8,47 +8,51 @@
         <title>InEbook</title>
     </h:head>
     <h:body>
-        <h:form>
-            <h1>Digite o nome do livro</h1>
-            <p:inputText value="#{livroBean.consultaName}" />
-            <h:selectOneMenu value="#{livroBean.tipoConsulta}">
-                <f:selectItem itemLabel="Selecione o tipo de busca" itemValue="" noSelectionOption="true" ></f:selectItem>
-                <f:selectItem itemLabel="Por Nome" itemValue="1" />
-                <f:selectItem itemLabel="Por Autor" itemValue="2" />
-            </h:selectOneMenu>
-            <br></br><br></br>
-            <p:commandButton value="Buscar" ajax="false" actionListener = "#{livroBean.buscarLivros}" update="tabela" ></p:commandButton>
+        <center>
+            <h:form>
+                <h1>Gerenciamento de Controle de Estoque</h1>
+                <p:inputText placeholder ="Digite o nome do Livro" value="#{livroBean.consultaName}" />
+                <p:spacer width="40" height="10" />
+                <h:selectOneMenu value="#{livroBean.tipoConsulta}">
+                    <f:selectItem itemLabel="Selecione o tipo de busca" itemValue="" noSelectionOption="true" ></f:selectItem>
+                    <f:selectItem itemLabel="Por Nome" itemValue="1" />
+                    <f:selectItem itemLabel="Por Autor" itemValue="2" />
+                </h:selectOneMenu>
+                <p:spacer width="40" height="10" />
+                <p:commandButton value="Buscar" ajax="false" actionListener = "#{livroBean.buscarLivros}" update="tabela" ></p:commandButton>
 
-            <br></br><br></br>
-            <p:dataTable id ="tabela"  value="#{livroBean.livros}" var="livro" selectionMode="single" selection="#{livroBean.livroSelected}" rowKey="#{livro.id}" >
-                <p:column headerText="Nome do Livro" sortBy="#{livro.nome}">
-                    <h:outputText value="#{livro.nome}" />
-                </p:column>
+                <br></br><br></br>
+                <p:dataTable id ="tabela"  value="#{livroBean.livros}" var="livro" selectionMode="single" selection="#{livroBean.livroSelected}" rowKey="#{livro.id}" >
+                    <p:column headerText="Nome do Livro" sortBy="#{livro.nome}">
+                        <h:outputText value="#{livro.nome}" />
+                    </p:column>
 
-                <p:column headerText="Preço" sortBy="#{livro.preco}">
-                    <h:outputText value="#{livro.preco}" />
-                </p:column>
+                    <p:column headerText="Preço" sortBy="#{livro.preco}">
+                        <h:outputText value="#{livro.preco}" />
+                    </p:column>
 
-                <p:column headerText="Autor" sortBy="#{livro.autor}">
-                    <h:outputText value="#{livro.autor}" />
-                </p:column>
+                    <p:column headerText="Autor" sortBy="#{livro.autor}">
+                        <h:outputText value="#{livro.autor}" />
+                    </p:column>
 
-                <p:column headerText="Seccao" sortBy="#{livro.seccao}">
-                    <h:outputText value="#{livro.seccao}" />
-                </p:column>
-                
-                <p:column headerText="Quantidade" sortBy="#{livro.quantidade}">
-                    <h:outputText value="#{livro.quantidade}" />
-                </p:column>
-                
+                    <p:column headerText="Seccao" sortBy="#{livro.seccao}">
+                        <h:outputText value="#{livro.seccao}" />
+                    </p:column>
 
-            </p:dataTable>
-            <br></br>
-            <p:commandButton value="Alterar"></p:commandButton>
-            <p:spacer width="100" height="10" />                
-            <p:commandButton value="Excluir"></p:commandButton>
-            <p:spacer width="950" height="10" /> 
-            <p:commandButton value="Novo"></p:commandButton> 
-        </h:form>
+                    <p:column headerText="Quantidade" sortBy="#{livro.quantidade}">
+                        <h:outputText value="#{livro.quantidade}" />
+                    </p:column>
+
+
+                </p:dataTable>
+                <br></br>
+                <p:commandButton value="Alterar"></p:commandButton>
+                <p:spacer width="100" height="10" />                
+                <p:commandButton value="Excluir" ajax="false" action="#{livroBean.deletarLivro}" update="tabela"></p:commandButton>
+                <p:spacer width="950" height="10" /> 
+                <p:commandButton value="Novo" action="cadastrolivro"></p:commandButton> 
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            </h:form>
+        </center>
     </h:body>
 </html>
