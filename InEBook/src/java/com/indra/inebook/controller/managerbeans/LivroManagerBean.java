@@ -44,45 +44,49 @@ public class LivroManagerBean implements Serializable {
         this.livroSelected = null;
     }
 
-    public void alterarLivro(){
+    public void alterarLivro() {
         PostgresLivroDAO pldao = new PostgresLivroDAO();
         pldao.updateLivroRegByID(livroSelected);
         infoAlterado();
     }
-    
-    public String verifyAlterar(){
-        if(livroSelected == null){
+
+    public String verifyAlterar() {
+        if (livroSelected == null) {
             errorAlterar();
             return "";
         }
-        
+
         return "alterarlivro";
     }
-    
-    public void deletarLivro(){
+
+    public void deletarLivro() {
         PostgresLivroDAO pldao = new PostgresLivroDAO();
-        
-        if(livroSelected == null){
+
+        if (livroSelected == null) {
             errorDelete();
-        }
-        else{
-           pldao.deleteLivroEstByID(livroSelected.getId());
-           pldao.deleteLivroRegByID(livroSelected.getId());
-           buscarLivros();
-           infoDelete();
+        } else {
+            pldao.deleteLivroEstByID(livroSelected.getId());
+            pldao.deleteLivroRegByID(livroSelected.getId());
+            buscarLivros();
+            infoDelete();
         }
     }
-    
+
     public void novoLivro() {
         PostgresLivroDAO pldao = new PostgresLivroDAO();
         Integer id;
-        if (pldao.verifyIfExistLivro(nomeLivro.toUpperCase(), autorLivro.toUpperCase())) {
-            error();
-        } else {
-            pldao.insertLivroReg(nomeLivro.toUpperCase(), autorLivro.toUpperCase());
-            id = pldao.getIdByNomeAutor(nomeLivro.toUpperCase(), autorLivro.toUpperCase());
-            pldao.insertLivroEst(quantidadeLivro, seccaoLivro.toUpperCase(), id, precoLivro);
-            info();
+        if (!nomeLivro.equals("") && !autorLivro.equals("") && !seccaoLivro.equals("")) {
+            if (pldao.verifyIfExistLivro(nomeLivro.toUpperCase(), autorLivro.toUpperCase())) {
+                error();
+            } else {
+                pldao.insertLivroReg(nomeLivro.toUpperCase(), autorLivro.toUpperCase());
+                id = pldao.getIdByNomeAutor(nomeLivro.toUpperCase(), autorLivro.toUpperCase());
+                pldao.insertLivroEst(quantidadeLivro, seccaoLivro.toUpperCase(), id, precoLivro);
+                info();
+            }
+        }
+        else{
+            errorCadastar();
         }
     }
 
@@ -176,6 +180,7 @@ public class LivroManagerBean implements Serializable {
     public void error() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Livro Ja Cadastrado"));
     }
+
     public void infoDelete() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Deletado com sucesso"));
     }
@@ -183,10 +188,15 @@ public class LivroManagerBean implements Serializable {
     public void errorDelete() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Não foi selecionado nenhum livro."));
     }
+
     public void errorAlterar() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Selecione um livro para alterar a pagina"));
     }
+
     public void infoAlterado() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Alterado com sucesso"));
+    }
+     public void errorCadastar() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Existem campos não preenchidos"));
     }
 }
