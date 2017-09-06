@@ -10,17 +10,17 @@
     <h:body>
         <h:form>
             <h1>Digite o nome do livro</h1>
-            <p:inputText  />
-            <h:selectOneMenu>
+            <p:inputText value="#{livroBean.consultaName}" />
+            <h:selectOneMenu value="#{livroBean.tipoConsulta}">
                 <f:selectItem itemLabel="Selecione o tipo de busca" itemValue="" noSelectionOption="true" ></f:selectItem>
                 <f:selectItem itemLabel="Por Nome" itemValue="1" />
                 <f:selectItem itemLabel="Por Autor" itemValue="2" />
             </h:selectOneMenu>
             <br></br><br></br>
-            <p:commandButton value="Buscar" ajax="false" actionListener = "#{livroBean.getBuscarLivros}" ></p:commandButton>
+            <p:commandButton value="Buscar" ajax="false" actionListener = "#{livroBean.buscarLivros}" update="tabela" ></p:commandButton>
 
             <br></br><br></br>
-            <p:dataTable  value="#{livroBean.livros}" var="livro">
+            <p:dataTable id ="tabela"  value="#{livroBean.livros}" var="livro">
                 <p:column headerText="Nome do Livro">
                     <h:outputText value="#{livro.nome}" />
                 </p:column>

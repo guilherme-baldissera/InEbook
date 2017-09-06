@@ -5,6 +5,7 @@
  */
 package com.indra.inebook.controller.managerbeans;
 
+import com.indra.inebook.model.dao.PostgresLivroDAO;
 import com.indra.inebook.model.vo.Livro;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,17 +32,15 @@ public class LivroManagerBean implements Serializable {
     public void init() {
         this.livros = new ArrayList<Livro>();
 
-        for (int i = 0; i < 5; i++) {
-            this.livros.add(new Livro(i, "nomelivro", "autor livo", (float) 55.5, "3b"));
-        }
-
     }
 
-    public void getBuscarLivros() {
+    public void buscarLivros() {
 
-        for (int i = 0; i < 5; i++) {
-            this.livros.add(new Livro(i, "nomelivro", "autor livo", (float) 55.5, "3b"));
-        }
+        PostgresLivroDAO pldao = new PostgresLivroDAO();
+        if(this.tipoConsulta.equals("1"))
+            livros = pldao.getLivroByNome(this.consultaName);
+        else if(this.tipoConsulta.equals("2"))
+            livros = pldao.getLivroByAutor(this.consultaName);
         
     }
 

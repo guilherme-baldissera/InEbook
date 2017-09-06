@@ -5,10 +5,16 @@
  */
 package com.indra.inebook.model.dao;
 
+import com.indra.inebook.model.vo.Livro;
+import java.util.List;
+
 /**
  *
  * @author guilherme
  */
 public interface LivroDAO {
+    public List<Livro> getLivroByNome(String livro);
+    public List<Livro> getLivroByAutor(String autor);
+    
     
 }
