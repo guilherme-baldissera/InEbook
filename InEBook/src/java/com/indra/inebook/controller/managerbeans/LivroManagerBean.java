@@ -45,9 +45,13 @@ public class LivroManagerBean implements Serializable {
     }
 
     public void alterarLivro() {
-        PostgresLivroDAO pldao = new PostgresLivroDAO();
-        pldao.updateLivroRegByID(livroSelected);
-        infoAlterado();
+        if (!livroSelected.getNome().equals("") && !livroSelected.getAutor().equals("") && !livroSelected.getSeccao().equals("") && (livroSelected.getQuantidade() >= 0) && (livroSelected.getPreco() >= 0)) {
+            PostgresLivroDAO pldao = new PostgresLivroDAO();
+            pldao.updateLivroRegByID(livroSelected);
+            infoAlterado();
+        } else {
+            errorAlterarCampo();
+        }
     }
 
     public String verifyAlterar() {
@@ -75,7 +79,7 @@ public class LivroManagerBean implements Serializable {
     public void novoLivro() {
         PostgresLivroDAO pldao = new PostgresLivroDAO();
         Integer id;
-        if (!nomeLivro.equals("") && !autorLivro.equals("") && !seccaoLivro.equals("")) {
+        if (!nomeLivro.equals("") && !autorLivro.equals("") && !seccaoLivro.equals("") && (quantidadeLivro >= 0) && (precoLivro >= 0)) {
             if (pldao.verifyIfExistLivro(nomeLivro.toUpperCase(), autorLivro.toUpperCase())) {
                 error();
             } else {
@@ -84,8 +88,7 @@ public class LivroManagerBean implements Serializable {
                 pldao.insertLivroEst(quantidadeLivro, seccaoLivro.toUpperCase(), id, precoLivro);
                 info();
             }
-        }
-        else{
+        } else {
             errorCadastar();
         }
     }
@@ -196,7 +199,13 @@ public class LivroManagerBean implements Serializable {
     public void infoAlterado() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Alterado com sucesso"));
     }
-     public void errorCadastar() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Existem campos não preenchidos"));
+
+    public void errorCadastar() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Existem campos não preenchidos ou invalidos"));
+    }
+
+    public void errorAlterarCampo() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Existem campos não preenchidos ou invalidos"));
+
     }
 }
